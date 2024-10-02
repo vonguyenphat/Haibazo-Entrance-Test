@@ -16,10 +16,6 @@ public class SkusProductVariationOptions {
     private SKUs skUs;
     @Id
     @ManyToOne
-    @JoinColumn(name = "product_variation_id")
-    private ProductVariations productVariations;
-    @Id
-    @ManyToOne
     @JoinColumn(name = "product_variation_options_id")
     private ProductVariationOptions productVariationOptions;
 }

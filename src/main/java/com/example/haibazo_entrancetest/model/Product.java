@@ -3,13 +3,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.util.Date;
+import java.util.Set;
+
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +20,6 @@ public class Product {
     private String name;
     private String thumb;
     private String description;
-    private Double price;
     private String slug;
     private int quantity;
     private float rating;
@@ -27,10 +29,19 @@ public class Product {
     private boolean isDraft;
     private boolean isPublished;
     private boolean isDelete;
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
     private Date createdAt;
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = false, updatable = false)
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
+    @OneToMany(mappedBy="product")
+    private Set<ProductVariations> productVariations;
+    @OneToMany(mappedBy="product")
+    private Set<SKUs> sku_list;
+    @OneToMany(mappedBy="product")
+    private Set<Images> images;
+    @ManyToOne
+    @JoinColumn(name="product_type_id")
+    private ProductType productType;
 }
