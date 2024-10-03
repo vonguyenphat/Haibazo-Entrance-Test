@@ -1,6 +1,7 @@
 package com.example.haibazo_entrancetest.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,11 @@ public class Images {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String src;
-
+    @JsonIgnore
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
+    @JsonIgnore
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;

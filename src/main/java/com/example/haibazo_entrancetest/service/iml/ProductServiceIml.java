@@ -26,7 +26,8 @@ public class ProductServiceIml implements IProductService {
     IProductVariationOptionsRepository optionsRepository;
     @Autowired
     ISKUsRepository skUsRepository;
-
+    @Autowired
+    IAttributeValueRepository attributeValueRepository;
     public Page<Product> findAllProduct(Pageable pageable) {
         return null;
     }
@@ -35,7 +36,8 @@ public class ProductServiceIml implements IProductService {
     public Product createProduct(ProductCreateRequestDTO productCreateRequestDTO) {
         Category category = categoryRepository.findById(productCreateRequestDTO.getCategory_id())
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
-
+        AttributeValue attributeValue = attributeValueRepository.findById(productCreateRequestDTO.getAttribute_value_id())
+                .orElseThrow(() -> new IllegalArgumentException("attribute value not found"));
         Product product = new Product();
         product.setName(productCreateRequestDTO.getName());
         product.setDescription(productCreateRequestDTO.getDescription());
@@ -47,6 +49,7 @@ public class ProductServiceIml implements IProductService {
         product.setPublished(false);
         product.setDraft(true);
         product.setDelete(false);
+        product.setAttributeValue(attributeValue);
         Product newProduct = productRepository.save(product);
 
         List<Images> imagesList = productCreateRequestDTO.getImages().stream()
@@ -96,8 +99,6 @@ public class ProductServiceIml implements IProductService {
     }
     @Override
     public Optional<Product> findProductById(Long id) {
-
-
         return productRepository.findById(id);
     }
 }

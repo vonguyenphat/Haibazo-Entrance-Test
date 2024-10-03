@@ -14,7 +14,7 @@ public class ProductCreateRequestDTO {
     int quantity;
     float rating;
     Long category_id;
-    Long product_type_id;
+    Long attribute_value_id;
     List<ImageDTO> images;
     List<ProductVariationDTO> product_variations;
     List<SkuDTO> sku_list;
