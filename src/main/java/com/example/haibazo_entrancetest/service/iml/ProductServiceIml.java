@@ -5,6 +5,7 @@ import com.example.haibazo_entrancetest.model.*;
 import com.example.haibazo_entrancetest.repository.*;
 import com.example.haibazo_entrancetest.service.IProductService;
 import com.google.gson.Gson;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +51,8 @@ public class ProductServiceIml implements IProductService {
         product.setDraft(true);
         product.setDelete(false);
         product.setAttributeValue(attributeValue);
+        product.setPrice(productCreateRequestDTO.getPrice());
+        product.setPriceDiscount(productCreateRequestDTO.getPrice());
         Product newProduct = productRepository.save(product);
 
         List<Images> imagesList = productCreateRequestDTO.getImages().stream()
@@ -64,7 +67,6 @@ public class ProductServiceIml implements IProductService {
         newProduct.setImages(new HashSet<>(imagesServiceIml.createProductImages(imagesList)));
 
         List<ProductVariations> variationsList = new ArrayList<>();
-
         for (ProductCreateRequestDTO.ProductVariationDTO item : productCreateRequestDTO.getProduct_variations()) {
             ProductVariations variation = new ProductVariations();
             variation.setName(item.getName());
@@ -100,5 +102,10 @@ public class ProductServiceIml implements IProductService {
     @Override
     public Optional<Product> findProductById(Long id) {
         return productRepository.findById(id);
+    }
+    @Transactional
+    @Override
+    public int publishProductById(Long id){
+        return productRepository.publishProductById(id);
     }
 }

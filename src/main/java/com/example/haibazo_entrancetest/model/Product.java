@@ -26,7 +26,9 @@ public class Product {
     private String slug;
     private int quantity;
     private float rating;
-
+    private Double price;
+    @Column(name = "price_discount")
+    private Double priceDiscount;
     @JsonIgnore
     private boolean isDraft;
     @JsonIgnore

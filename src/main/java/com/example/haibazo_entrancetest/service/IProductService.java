@@ -16,5 +16,5 @@ public interface IProductService {
     Product createProduct(ProductCreateRequestDTO product);
 
     Optional<Product> findProductById(Long id);
-
+     int publishProductById(Long id);
 }

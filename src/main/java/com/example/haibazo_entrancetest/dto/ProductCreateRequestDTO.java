@@ -1,5 +1,6 @@
 package com.example.haibazo_entrancetest.dto;
 
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
@@ -13,11 +14,14 @@ public class ProductCreateRequestDTO {
     String slug;
     int quantity;
     float rating;
+    private Double price;
+    private Double price_discount;
     Long category_id;
     Long attribute_value_id;
     List<ImageDTO> images;
     List<ProductVariationDTO> product_variations;
     List<SkuDTO> sku_list;
+
     @Getter
     @Setter
     public static class ImageDTO {

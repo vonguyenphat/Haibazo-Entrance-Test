@@ -60,4 +60,16 @@ public class ProductController {
             throw new ApiRequestException(ex.getMessage());
         }
     }
+
+    @PostMapping("/publish/{id}")
+    public ResponseEntity<?> publishProductById(@PathVariable("id") long id) {
+        try {
+            if (productService.publishProductById(id) ==1){
+                return ResponseEntity.ok("Update product to publish success");
+            }
+            return ResponseEntity.ok("Update product to publish fail");
+        } catch (Exception ex) {
+            throw new ApiRequestException(ex.getMessage());
+        }
+    }
 }

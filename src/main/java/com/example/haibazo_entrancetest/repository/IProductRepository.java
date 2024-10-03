@@ -1,12 +1,15 @@
 package com.example.haibazo_entrancetest.repository;
 
 import com.example.haibazo_entrancetest.model.Product;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
 @Repository
@@ -35,5 +38,8 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
                                  @Param("option_2") String option2,
                                  @Param("option_3") String option3);
 
+    @Modifying
+    @Query("update Product  set isPublished = true , isDraft=false where id =:product_id")
+    int publishProductById(@Param("product_id") Long id);
 }
 
