@@ -12,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @RestController
 @RequestMapping("/v1/api/products")
@@ -24,7 +22,7 @@ public class ProductController {
     IProductRepository productRepository;
 
     @GetMapping
-    public ResponseEntity<Page<Product>> getAllProductHomePage1(
+    public ResponseEntity<Page<Product>> getAllProduct(
             @RequestParam(value = "category_id", required = false) String categoryId,
             @RequestParam(value = "option_1", required = false) String option_1,
             @RequestParam(value = "option_2", required = false) String option_2,
@@ -41,16 +39,6 @@ public class ProductController {
             return ResponseEntity.ok().body(productPage);
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw new ApiRequestException(ex.getMessage());
-        }
-    }
-
-
-    @GetMapping("/test")
-    public ResponseEntity<List<?>> getAllProductHomePage() {
-        try {
-            return ResponseEntity.ok(productRepository.findAll());
-        } catch (Exception ex) {
             throw new ApiRequestException(ex.getMessage());
         }
     }
@@ -72,5 +60,4 @@ public class ProductController {
             throw new ApiRequestException(ex.getMessage());
         }
     }
-
 }
