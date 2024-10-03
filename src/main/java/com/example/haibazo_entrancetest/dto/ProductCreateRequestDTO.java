@@ -1,6 +1,5 @@
 package com.example.haibazo_entrancetest.dto;
 
-import com.example.haibazo_entrancetest.model.Images;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
@@ -44,14 +43,8 @@ public class ProductCreateRequestDTO {
         private String sku;
         private double price;
         private int stock;
-        private VariationsDTO variations;
-
-        @Getter
-        @Setter
-        public static class VariationsDTO {
-            private String size;
-            private String color;
-        }
+        private String slug;
+        private List<Integer> sku_tier_idx;
     }
 
 }

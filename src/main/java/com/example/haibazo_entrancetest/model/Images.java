@@ -1,5 +1,6 @@
 package com.example.haibazo_entrancetest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,7 @@ public class Images {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String src;
-    @ManyToOne
-    @JoinColumn(name="product_id")
-    private Product product;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
@@ -28,7 +27,8 @@ public class Images {
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
-    public Images(Long id, String src) {
-
-    }
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name="product_id")
+    private Product product;
 }

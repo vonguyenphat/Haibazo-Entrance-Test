@@ -2,20 +2,16 @@ package com.example.haibazo_entrancetest.service.iml;
 
 import com.example.haibazo_entrancetest.dto.ProductCreateRequestDTO;
 import com.example.haibazo_entrancetest.model.*;
-import com.example.haibazo_entrancetest.repository.ICategoryRepository;
-import com.example.haibazo_entrancetest.repository.IProductRepository;
-import com.example.haibazo_entrancetest.repository.IProductVariationOptionsRepository;
-import com.example.haibazo_entrancetest.repository.IProductVariationsRepository;
+import com.example.haibazo_entrancetest.repository.*;
 import com.example.haibazo_entrancetest.service.IProductService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
+import java.util.*;
+import java.util.stream.Collectors;
 @Service
 public class ProductServiceIml implements IProductService {
     @Autowired
@@ -28,8 +24,9 @@ public class ProductServiceIml implements IProductService {
     IProductVariationsRepository variationsRepository;
     @Autowired
     IProductVariationOptionsRepository optionsRepository;
+    @Autowired
+    ISKUsRepository skUsRepository;
 
-    @Override
     public Page<Product> findAllProduct(Pageable pageable) {
         return null;
     }
@@ -38,6 +35,7 @@ public class ProductServiceIml implements IProductService {
     public Product createProduct(ProductCreateRequestDTO productCreateRequestDTO) {
         Category category = categoryRepository.findById(productCreateRequestDTO.getCategory_id())
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
+
         Product product = new Product();
         product.setName(productCreateRequestDTO.getName());
         product.setDescription(productCreateRequestDTO.getDescription());
@@ -49,7 +47,6 @@ public class ProductServiceIml implements IProductService {
         product.setPublished(false);
         product.setDraft(true);
         product.setDelete(false);
-
         Product newProduct = productRepository.save(product);
 
         List<Images> imagesList = productCreateRequestDTO.getImages().stream()
@@ -60,9 +57,11 @@ public class ProductServiceIml implements IProductService {
                     return image;
                 })
                 .collect(Collectors.toList());
-        newProduct.setImages(new HashSet<Images>(imagesServiceIml.createProductImages(imagesList)));
+
+        newProduct.setImages(new HashSet<>(imagesServiceIml.createProductImages(imagesList)));
 
         List<ProductVariations> variationsList = new ArrayList<>();
+
         for (ProductCreateRequestDTO.ProductVariationDTO item : productCreateRequestDTO.getProduct_variations()) {
             ProductVariations variation = new ProductVariations();
             variation.setName(item.getName());
@@ -75,21 +74,30 @@ public class ProductServiceIml implements IProductService {
                 option.setProductVariations(newVariation);
                 optionsList.add(optionsRepository.save(option));
             }
-            newVariation.setOptions(new HashSet<ProductVariationOptions>(optionsList));
+            newVariation.setOptions(new HashSet<>(optionsList));
             variationsList.add(newVariation);
         }
-
-        newProduct.setProductVariations(new HashSet<ProductVariations>(variationsList));
-        List<SKUs> skUsList= productCreateRequestDTO.getSku_list().stream()
-                .map(item ->{
+        newProduct.setProductVariations(new HashSet<>(variationsList));
+        List<SKUs> skUsList = productCreateRequestDTO.getSku_list().stream()
+                .map(item -> {
                     SKUs sku = new SKUs();
+                    String temp = newProduct.getId()+"."+Math.random() * 899999 * 1000000;
+                    sku.setSlug(item.getSlug()+"."+temp);
+                    sku.setSku(temp);
                     sku.setStock(item.getStock());
                     sku.setPrice(item.getPrice());
                     sku.setProduct(newProduct);
+                    sku.setSkuTierIdx(new Gson().toJson(item.getSku_tier_idx()));
                     return sku;
                 })
                 .collect(Collectors.toList());
+        newProduct.setSku_list(new  HashSet<>(skUsRepository.saveAll(skUsList)));
+        return newProduct;
+    }
+    @Override
+    public Optional<Product> findProductById(Long id) {
 
-        return null;
+
+        return productRepository.findById(id);
     }
 }

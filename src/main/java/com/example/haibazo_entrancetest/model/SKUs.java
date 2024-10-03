@@ -1,5 +1,9 @@
 package com.example.haibazo_entrancetest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +11,6 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -17,41 +19,26 @@ import java.util.Set;
 @Table(name = "skus")
 public class SKUs {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String sku;
     private Double price;
     private String slug;
+    @JsonIgnore
     private boolean isDelete;
-    @ManyToOne
-    @JoinColumn(name="product_id")
-    private Product product;
     private int stock;
+    @JsonIgnore
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
+    @JsonIgnore
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
-
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "skus_product_variation_options",
-            joinColumns = { @JoinColumn(name = "sku") },
-            inverseJoinColumns = { @JoinColumn(name = "option_id") })
-    private Set<ProductVariationOptions> options = new HashSet<>();
-
-    public void addOption(ProductVariationOptions option) {
-        this.options.add(option);
-        option.getSkus().add(this);
-    }
-
-    public void removeOption(long option_id) {
-        ProductVariationOptions option = this.options.stream().filter(o -> o.getId() == option_id).findFirst().orElse(null);
-        if (option != null) {
-            this.options.remove(option);
-            option.getSkus().remove(this);
-        }
-    }
+    @Column(name = "sku_tier_idx", nullable = false, columnDefinition = "json")
+    private String skuTierIdx;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }
