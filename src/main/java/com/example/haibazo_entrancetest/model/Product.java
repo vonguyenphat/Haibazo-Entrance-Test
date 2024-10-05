@@ -1,5 +1,4 @@
 package com.example.haibazo_entrancetest.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,10 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.util.Date;
 import java.util.Set;
-
 @Entity
 @NoArgsConstructor
 @Getter
@@ -24,11 +21,9 @@ public class Product {
     private String thumb;
     private String description;
     private String slug;
-    private int quantity;
     private float rating;
-    private Double price;
-    @Column(name = "price_discount")
-    private Double priceDiscount;
+
+
     @JsonIgnore
     private boolean isDraft;
     @JsonIgnore
@@ -43,7 +38,6 @@ public class Product {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
-
     @OneToMany(mappedBy = "product")
     private Set<ProductVariations> productVariations;
     @OneToMany(mappedBy = "product")
@@ -57,4 +51,5 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "attribute_value_id")
     private AttributeValue attributeValue;
+
 }

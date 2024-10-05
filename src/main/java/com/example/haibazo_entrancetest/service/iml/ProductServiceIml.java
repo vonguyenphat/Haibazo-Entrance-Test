@@ -44,15 +44,12 @@ public class ProductServiceIml implements IProductService {
         product.setDescription(productCreateRequestDTO.getDescription());
         product.setThumb(productCreateRequestDTO.getThumb());
         product.setSlug(productCreateRequestDTO.getSlug());
-        product.setQuantity(productCreateRequestDTO.getQuantity());
         product.setRating(productCreateRequestDTO.getRating());
         product.setCategory(category);
         product.setPublished(false);
         product.setDraft(true);
         product.setDelete(false);
         product.setAttributeValue(attributeValue);
-        product.setPrice(productCreateRequestDTO.getPrice());
-        product.setPriceDiscount(productCreateRequestDTO.getPrice());
         Product newProduct = productRepository.save(product);
 
         List<Images> imagesList = productCreateRequestDTO.getImages().stream()
