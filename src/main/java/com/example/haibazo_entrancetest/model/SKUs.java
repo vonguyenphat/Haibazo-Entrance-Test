@@ -2,8 +2,6 @@ package com.example.haibazo_entrancetest.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +22,7 @@ public class SKUs {
     private String sku;
     private Double price;
     private String slug;
+    private Double finalPrice;
     @JsonIgnore
     private boolean isDelete;
     private int stock;
@@ -41,4 +40,8 @@ public class SKUs {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
 }

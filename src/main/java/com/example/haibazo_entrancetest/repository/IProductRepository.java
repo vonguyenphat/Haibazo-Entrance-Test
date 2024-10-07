@@ -9,17 +9,24 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
 
-    @Query(value ="select p from Product p " +
-            "join SKUs sku on sku.product.id = p.id " +
-            "where p.isDelete = false and p.isDraft = false and p.isPublished = true and p.id = :id ")
+    @Query(value = "select p  from Product p " +
+            "JOIN SKUs sku ON sku.product.id = p.id " +
+            "where p.isDelete = false and p.isDraft = false and p.isPublished = true and p.id = :id " +
+            "GROUP BY p.id")
     Optional<Product> findById(@Param("id") Long id);
 
-    @Query(value = "SELECT new ProductFindAllDTO (p.id,p.name,p.thumb,p.slug,p.rating,min(sku.price))  FROM Product p " +
+    @Query(value = "SELECT new com.example.haibazo_entrancetest.dto.ProductFindAllDTO (" +
+            "p.id, p.name, p.thumb, p.slug, p.rating, MIN(sku.price), " +
+            "(SELECT sku2.finalPrice FROM SKUs sku2 " +
+            "WHERE sku2.product.id = p.id " +
+            "AND sku2.price = MIN(sku.price)))" +
+            "FROM Product p " +
             "JOIN SKUs sku ON sku.product.id = p.id " +
             "JOIN ProductVariations pv ON pv.product.id = p.id " +
             "JOIN ProductVariationOptions pvo ON pvo.productVariations.id = pv.id " +
@@ -39,8 +46,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
                                            @Param("option_1") String option1,
                                            @Param("option_2") String option2,
                                            @Param("option_3") String option3);
-
-
     @Modifying
     @Query("update Product  set isPublished = true , isDraft=false where id =:product_id")
     int publishProductById(@Param("product_id") Long id);
