@@ -32,14 +32,11 @@ public class ProductController {
             @RequestParam(value = "price_min", required = false) String price_min) {
         try {
             Pageable pageable = PageRequest.of(page, 12);
-
             Long categoryIdLong = (categoryId != null && !categoryId.isEmpty()) ? Long.parseLong(categoryId) : null;
             Long attributeValueIdLong = (attributeValueId != null && !attributeValueId.isEmpty()) ? Long.parseLong(attributeValueId) : null;
 
             Page<ProductFindAllDTO> productPage = productRepository.findAllProduct(pageable, categoryIdLong, attributeValueIdLong, option_1, option_2, option_3);
             return ResponseEntity.ok().body(productPage);
-
-
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ApiRequestException(ex.getMessage());
