@@ -4,7 +4,8 @@ spring:
   application:
     name: HAIBAZO_EntranceTest
   datasource:
-    url: jdbc:mysql://localhost:3306/HaibazoEntranceTest?createDatabaseIfNotExist=true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/haibazo_entrance_test?createDatabaseIfNotExist=true
     username: root
     password: 17062003
   jpa:

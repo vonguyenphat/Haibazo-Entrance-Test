@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "255403f8-3536-4837-a523-fee4f752d807",
+		"name": "HaibazoEntranceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24974778",
+		"_collection_link": "https://orange-zodiac-473401.postman.co/workspace/New-Team-Workspace~dfda4fec-7418-4e38-a860-6347092edbfb/collection/24974778-255403f8-3536-4837-a523-fee4f752d807?action=share&source=collection_link&creator=24974778"
+	},
+	"item": [
+		{
+			"name": "Create product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//  {\n//         \"name\": \"T-shirt\",\n//         \"description\": \"Basic white T-shirt\",\n//         \"thumb\": \"tshirt.jpg\",\n//         \"slug\": \"tshirt\",\n//         \"rating\": 4.0,\n//         \"category_id\": 1,\n//         \"attribute_value_id\": 1,\n//         \"images\": [\n//             {\n//                 \"src\": \"tshirt-front.jpg\"\n//             },\n//             {\n//                 \"src\": \"tshirt-back.jpg\"\n//             }\n//         ],\n//         \"product_variations\": [\n//             {\n//                 \"name\": \"Size\",\n//                 \"options\": [\n//                     {\n//                         \"name\": \"S\"\n//                     },\n//                     {\n//                         \"name\": \"M\"\n//                     }\n//                 ]\n//             },\n//             {\n//                 \"name\": \"Color\",\n//                 \"options\": [\n//                     {\n//                         \"name\": \"White\"\n//                     },\n//                     {\n//                         \"name\": \"Black\"\n//                     }\n//                 ]\n//             }\n//         ],\n//         \"sku_list\": [\n//             {\n//                 \"slug\": \"TSHIRT-SMALL-WHITE\",\n//                 \"price\": 19.99,\n//                 \"stock\": 100,\n//                 \"sku_tier_idx\": [0, 0]\n//             },\n//             {\n//                 \"slug\": \"TSHIRT-MEDIUM-WHITE\",\n//                 \"price\": 24.99,\n//                 \"stock\": 80,\n//                 \"sku_tier_idx\": [1, 0]\n//             },\n//             {\n//                 \"slug\": \"TSHIRT-MEDIUM-BLACK\",\n//                 \"price\": 24.99,\n//                 \"stock\": 60,\n//                 \"sku_tier_idx\": [1, 1]\n//             },\n//             {\n//                 \"slug\": \"TSHIRT-SMALL-BLACK\",\n//                 \"price\": 19.99,\n//                 \"stock\": 120,\n//                 \"sku_tier_idx\": [0, 1]\n//             }\n//         ]\n//     }\n    // {\n    //     \"name\": \"Hoodie\",\n    //     \"description\": \"Warm winter hoodie\",\n    //     \"thumb\": \"hoodie.jpg\",\n    //     \"slug\": \"hoodie\",\n    //     \"rating\": 4.8,\n    //     \"category_id\": 1,\n    //     \"attribute_value_id\": 2,\n    //     \"images\": [\n    //         {\n    //             \"src\": \"hoodie-front.jpg\"\n    //         },\n    //         {\n    //             \"src\": \"hoodie-back.jpg\"\n    //         }\n    //     ],\n    //     \"product_variations\": [\n    //         {\n    //             \"name\": \"Size\",\n    //             \"options\": [\n    //                 {\n    //                     \"name\": \"S\"\n    //                 },\n    //                 {\n    //                     \"name\": \"L\"\n    //                 }\n    //             ]\n    //         },\n    //         {\n    //             \"name\": \"Color\",\n    //             \"options\": [\n    //                 {\n    //                     \"name\": \"Gray\"\n    //                 },\n    //                 {\n    //                     \"name\": \"Black\"\n    //                 }\n    //             ]\n    //         }\n    //     ],\n    //     \"sku_list\": [\n    //         {\n    //             \"slug\": \"HOODIE-SMALL-GRAY\",\n    //             \"price\": 49.99,\n    //             \"stock\": 40,\n    //             \"sku_tier_idx\": [0, 0]\n    //         },\n    //         {\n    //             \"slug\": \"HOODIE-LARGE-GRAY\",\n    //             \"price\": 59.99,\n    //             \"stock\": 30,\n    //             \"sku_tier_idx\": [1, 0]\n    //         },\n    //         {\n    //             \"slug\": \"HOODIE-LARGE-BLACK\",\n    //             \"price\": 59.99,\n    //             \"stock\": 20,\n    //             \"sku_tier_idx\": [1, 1]\n    //         },\n    //         {\n    //             \"slug\": \"HOODIE-SMALL-BLACK\",\n    //             \"price\": 49.99,\n    //             \"stock\": 50,\n    //             \"sku_tier_idx\": [0, 1]\n    //         }\n    //     ]\n    // }\n\n    //  {\n    //     \"name\": \"Jacket\",\n    //     \"description\": \"Leather jacket\",\n    //     \"thumb\": \"jacket.jpg\",\n    //     \"slug\": \"jacket\",\n    //     \"rating\": 4.6,\n    //     \"category_id\": 1,\n    //     \"attribute_value_id\": 4,\n    //     \"images\": [\n    //         {\n    //             \"src\": \"jacket-front.jpg\"\n    //         },\n    //         {\n    //             \"src\": \"jacket-back.jpg\"\n    //         }\n    //     ],\n    //     \"product_variations\": [\n    //         {\n    //             \"name\": \"Size\",\n    //             \"options\": [\n    //                 {\n    //                     \"name\": \"M\"\n    //                 },\n    //                 {\n    //                     \"name\": \"L\"\n    //                 }\n    //             ]\n    //         },\n    //         {\n    //             \"name\": \"Color\",\n    //             \"options\": [\n    //                 {\n    //                     \"name\": \"Brown\"\n    //                 },\n    //                 {\n    //                     \"name\": \"Black\"\n    //                 }\n    //             ]\n    //         }\n    //     ],\n    //     \"sku_list\": [\n    //         {\n    //             \"slug\": \"JACKET-MEDIUM-BROWN\",\n    //             \"price\": 99.99,\n    //             \"stock\": 30,\n    //             \"sku_tier_idx\": [0, 0]\n    //         },\n    //         {\n    //             \"slug\": \"JACKET-LARGE-BROWN\",\n    //             \"price\": 109.99,\n    //             \"stock\": 20,\n    //             \"sku_tier_idx\": [1, 0]\n    //         },\n    //         {\n    //             \"slug\": \"JACKET-LARGE-BLACK\",\n    //             \"price\": 109.99,\n    //             \"stock\": 25,\n    //             \"sku_tier_idx\": [1, 1]\n    //         },\n    //         {\n    //             \"slug\": \"JACKET-MEDIUM-BLACK\",\n    //             \"price\": 99.99,\n    //             \"stock\": 35,\n    //             \"sku_tier_idx\": [0, 1]\n    //         }\n    //     ]\n    // }\n\n    //      {\n    //     \"name\": \"IPhone 14\",\n    //     \"description\": \"IPhone\",\n    //     \"thumb\": \"IPhone.jpg\",\n    //     \"slug\": \"IPhone\",\n    //     \"rating\": 4.6,\n    //     \"category_id\": 2,\n    //     \"attribute_value_id\": 7,\n    //     \"images\": [\n    //         {\n    //             \"src\": \"IPhone-front.jpg\"\n    //         },\n    //         {\n    //             \"src\": \"IPhone-back.jpg\"\n    //         }\n    //     ],\n    //     \"product_variations\": [\n    //         {\n    //             \"name\": \"Color\",\n    //             \"options\": [\n    //                 {\n    //                     \"name\": \"Blue titanium\"\n    //                 },\n    //                 {\n    //                     \"name\": \"White titanium\"\n    //                 },\n    //                 {\n    //                     \"name\": \"Natural titanium\"\n    //                 }\n    //             ]\n    //         }\n    //     ],\n    //     \"sku_list\": [\n    //         {\n    //             \"slug\": \"Blue-titanium\",\n    //             \"price\": 99.99,\n    //             \"stock\": 30,\n    //             \"sku_tier_idx\": [0]\n    //         },\n    //         {\n    //             \"slug\": \"White-titanium\",\n    //             \"price\": 109.99,\n    //             \"stock\": 20,\n    //             \"sku_tier_idx\": [1]\n    //         },\n    //         {\n    //             \"slug\": \"Natural-titanium\",\n    //             \"price\": 109.99,\n    //             \"stock\": 25,\n    //             \"sku_tier_idx\": [2]\n    //         }\n    //     ]\n    // }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/api/products"
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/api/products/3"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all product home page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/api/products?category_id=1&option_1=Black&option_2=S",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "category_id",
+							"value": "1"
+						},
+						{
+							"key": "option_1",
+							"value": "Black"
+						},
+						{
+							"key": "option_2",
+							"value": "S"
+						},
+						{
+							"key": "option_3",
+							"value": "null",
+							"disabled": true
+						},
+						{
+							"key": "attribute_value_id",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "min_price",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "max_price",
+							"value": "0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update status product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:8080/v1/api/products/publish/1"
+			},
+			"response": []
+		}
+	]
+}
